@@ -27,10 +27,10 @@ int main(void)
 	
 	//set waveform generation mode/PRESCALER(no prescaler)
 	TCCR1A|=(1<<WGM11);
-	TCCR1B|=(1<<WGM12)|(1<<WGM13)|(1<<CS10);
-	TIMSK|=(1<<OCIE1A);
+	TCCR1B|=(1<<WGM12)|(1<<WGM13)|(1<<CS10);//set prescaler (no prescaler)
+	TIMSK|=(1<<OCIE1A); //Enable time compare interrupt
 	
-	ICR1=19999;
+	ICR1=19999; //set the counter top value to ICR1
 	sei();
 	
    
@@ -44,6 +44,7 @@ int main(void)
 }
 
 ISR(TIMER1_COMPA_vect){
+	//Take the servo pins high
 	servoPort|=(1<<servo1);
 	servoPort|=(1<<servo2);
 }
